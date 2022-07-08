@@ -1,13 +1,15 @@
 class ApplicationController < ActionController::API
   def forecast
-    @data = WeatherApiService.new(params[:location]).forecast(params[:days])
-    render json: { message: 'Forecast data' }, status: :ok
+    params.require(:location)
+
+    data, status, message = WeatherApiService.new(params[:location]).forecast
+    render json: { message: message, data: data }, status: status
   end
 
   def history
-    params.require(%i[start_date end_date])
+    params.require(%i[location start_date end_date])
 
-    @data = WeatherApiService.new(params[:location]).history(params[:start_date], params[:end_date])
-    render json: { message: 'History data' }, status: :ok
+    data, status, message = WeatherApiService.new(params[:location]).history(params[:start_date], params[:end_date])
+    render json: { message: message, data: data }, status: status
   end
 end
