@@ -31,7 +31,7 @@ RSpec.describe WeatherApiService, type: :service do
 
   describe '::forecast' do
     before do
-      stub_api_request("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Brunei/next7days?include=days&key=#{ENV['WEATHER_API_KEY']}")
+      stub_weather_api("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Brunei/next7days?include=days&key=#{ENV['WEATHER_API_KEY']}")
     end
 
     it 'returns success response' do
@@ -41,7 +41,7 @@ RSpec.describe WeatherApiService, type: :service do
 
   describe '::history' do
     before do
-      stub_api_request("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Brunei/2022-01-01/2022-01-02?include=days&key=#{ENV['WEATHER_API_KEY']}")
+      stub_weather_api("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Brunei/2022-01-01/2022-01-02?include=days&key=#{ENV['WEATHER_API_KEY']}")
     end
 
     context 'when valid dates' do
@@ -59,7 +59,7 @@ RSpec.describe WeatherApiService, type: :service do
 
   private
 
-  def stub_api_request(url)
+  def stub_weather_api(url)
     stub_request(:get, url)
       .with(headers: {
         'Accept'=>'*/*',
