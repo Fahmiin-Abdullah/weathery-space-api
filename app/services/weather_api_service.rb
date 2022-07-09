@@ -30,7 +30,7 @@ class WeatherApiService
 
       call(history_uri)
     rescue ArgumentError => e
-      return [{}, 500, e]
+      return [{}, 500, e.message]
     end
   end
 
