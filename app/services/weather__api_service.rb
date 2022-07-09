@@ -23,12 +23,26 @@ class WeatherApiService
   # returns weather history within date range
   # =========================================
   def history(start_date, end_date)
-    history_uri = "#{URL}/#{@location}/#{start_date}/#{end_date}?include=days&key=#{api_key}"
+    begin
+      start_date = sanitize_date(start_date)
+      end_date = sanitize_date(end_date)
+      history_uri = "#{URL}/#{@location}/#{start_date}/#{end_date}?include=days&key=#{api_key}"
 
-    call(history_uri)
+      call(history_uri)
+    rescue ArgumentError => e
+      return [{}, 500, e]
+    end
   end
 
   private
+
+  def api_key
+    ENV['WEATHER_API_KEY']
+  end
+
+  def sanitize_date(date)
+    Date.parse(date).strftime('%Y-%m-%d')
+  end
 
   def call(uri)
     begin
@@ -37,9 +51,5 @@ class WeatherApiService
     rescue OpenURI::HTTPError => e
       [{}] + e.io.status
     end
-  end
-
-  def api_key
-    ENV['WEATHER_API_KEY']
   end
 end
