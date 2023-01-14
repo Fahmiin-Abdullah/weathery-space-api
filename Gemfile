@@ -24,6 +24,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 # Others
 gem 'figaro'
+gem 'net-smtp', require: false
+gem 'psych', '< 4'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
