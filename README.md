@@ -41,7 +41,7 @@ production:
 
 ```
 5. Run `bundle exec rspec` to run RSpec tests
-6. Run `rails s` to start
+6. Run `rails server` to start
 7. In something like postman or in cUrl, make a request to `POST http://localhost:3000/forecast` and payload
 ```json
 {
